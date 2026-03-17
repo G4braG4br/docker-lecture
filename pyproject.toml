@@ -1,46 +1,43 @@
-[project]
+[tool.poetry]
 name = "photition-api"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Andrei Sesyomko",email = "andreinev007@gmail.com"}
-]
 readme = "README.md"
-requires-python = ">=3.13,<4.0"
-dependencies = [
-    "django (>=5.2.7,<6.0.0)",
-    "djangorestframework (>=3.16.1,<4.0.0)",
-    "django-viewflow (>=2.2.13,<3.0.0)",
-    "django-imagekit (>=6.0.0,<7.0.0)",
-    "django-service-objects (>=0.7.0,<0.8.0)",
-    "channels[daphne] (>=4.3.1,<5.0.0)",
-    "drf-spectacular[sidecar] (>=0.28.0,<0.29.0)",
-    "celery (>=5.5.3,<6.0.0)",
-    "python-decouple (>=3.8,<4.0)",
-    "markdown (>=3.9,<4.0)",
-    "django-split-settings (>=1.3.2,<2.0.0)",
-    "django-filter (>=25.2,<26.0)",
-    "django-oauth-toolkit (>=3.1.0,<4.0.0)",
-    "service-objects-autodocs @ git+https://git.snpdev.ru/saltpepper/service-objects-autodocs",
-    "drf-social-oauth2 (>=3.1.0,<4.0.0)",
-    "django-materialized-view (>=0.1.6.2,<0.2.0.0)",
-    "pre-commit (>=4.5.0,<5.0.0)",
-    "django-cors-headers (>=4.9.0,<5.0.0)",
-    "django-fsm-2 (>=4.1.0,<5.0.0)",
-    "djangochannelsrestframework (>=1.3.0,<2.0.0)",
-    "djangorestframework-stubs (>=3.16.6,<4.0.0)",
-    "requests (>=2.32.5,<3.0.0)",
-    "channels-redis (>=4.3.0,<5.0.0)",
-    "whitenoise (>=6.11.0,<7.0.0)",
-    "psycopg[binary] (>=3.3.2,<4.0.0)",
-    "factory-boy (>=3.3.3,<4.0.0)",
-    "faker (>=40.1.2,<41.0.0)",
-    "django-celery-beat (>=2.8.1,<3.0.0)",
-    "django-silk (>=5.4.3,<6.0.0)",
-    "django-debug-toolbar (>=6.2.0,<7.0.0)",
-    "django-redis (>=6.0.0,<7.0.0)",
-]
+package-mode = false
 
+[tool.poetry.dependencies]
+python = ">=3.13,<4.0"
+django = ">=5.2.7,<6.0.0"
+djangorestframework = ">=3.16.1,<4.0.0"
+django-viewflow = ">=2.2.13,<3.0.0"
+django-imagekit = ">=6.0.0,<7.0.0"
+channels = {version = ">=4.3.1,<5.0.0", extras = ["daphne"]}
+drf-spectacular = {version = ">=0.28.0,<0.29.0", extras = ["sidecar"]}
+celery = ">=5.5.3,<6.0.0"
+python-decouple = ">=3.8,<4.0"
+markdown = ">=3.9,<4.0"
+django-split-settings = ">=1.3.2,<2.0.0"
+django-filter = ">=25.2,<26.0"
+django-oauth-toolkit = ">=3.1.0,<4.0.0"
+django-service-objects = {git = "https://git.snpdev.ru/saltpepper/django-service-objects.git", branch = "master"}
+service-objects-autodocs = {git = "https://git.snpdev.ru/saltpepper/service-objects-autodocs.git", rev = "v1.1.1"}
+drf-social-oauth2 = ">=3.1.0,<4.0.0"
+django-materialized-view = ">=0.1.6.2,<0.2.0.0"
+pre-commit = ">=4.5.0,<5.0.0"
+django-cors-headers = ">=4.9.0,<5.0.0"
+django-fsm-2 = ">=4.1.0,<5.0.0"
+djangochannelsrestframework = ">=1.3.0,<2.0.0"
+djangorestframework-stubs = ">=3.16.6,<4.0.0"
+requests = ">=2.32.5,<3.0.0"
+channels-redis = ">=4.3.0,<5.0.0"
+whitenoise = ">=6.11.0,<7.0.0"
+psycopg = {version = ">=3.3.2,<4.0.0", extras = ["binary"]}
+factory-boy = ">=3.3.3,<4.0.0"
+faker = ">=40.1.2,<41.0.0"
+django-celery-beat = ">=2.8.1,<3.0.0"
+django-silk = ">=5.4.3,<6.0.0"
+django-debug-toolbar = ">=6.2.0,<7.0.0"
+django-redis = ">=6.0.0,<7.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
