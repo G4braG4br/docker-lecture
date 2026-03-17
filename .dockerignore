@@ -1,0 +1,14 @@
+.venv
+venv
+.git
+.idea
+.mypy_cache
+__pycache__
+*.pyc
+.env
+app.env
+*.log
+media
+static
+.dockerignore
+README.md

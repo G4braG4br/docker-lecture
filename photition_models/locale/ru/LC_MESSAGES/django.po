@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-16 22:28+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: photition_models/admin/admin.py:5
+msgid "Admin"
+msgstr "Панель администратора"
+
+#: photition_models/admin/admin.py:6
+msgid "Photition Admin"
+msgstr "Панель администратора Photition"
+
+#: photition_models/admin/comment/admin.py:25
+msgid "Short comment"
+msgstr "Комментарий"
+
+#: photition_models/admin/notice/admin.py:21
+#: photition_models/admin/photo/admin.py:32
+msgid "No photo"
+msgstr "Без фото"
+
+#: photition_models/models/comment/models.py:12
+#: photition_models/models/comment/models.py:71
+msgid "Comment"
+msgstr "Комментарий"
+
+#: photition_models/models/comment/models.py:13
+msgid "Comment text"
+msgstr "Текст комментария"
+
+#: photition_models/models/comment/models.py:20
+#: photition_models/models/comment/models.py:21
+#: photition_models/models/notice/notice_model.py:31
+#: photition_models/models/notice/notice_model.py:32
+#: photition_models/models/photo/photo_model.py:33
+#: photition_models/models/photo/photo_model.py:34
+#: photition_models/models/photo/photo_model.py:146
+msgid "Photo"
+msgstr "Фото"
+
+#: photition_models/models/comment/models.py:28
+#: photition_models/models/comment/models.py:29
+#: photition_models/models/photo/photo_model.py:69
+#: photition_models/models/photo/photo_model.py:70
+msgid "Author"
+msgstr "Автор"
+
+#: photition_models/models/comment/models.py:38
+#: photition_models/models/comment/models.py:39
+msgid "Belongs to"
+msgstr "Принадлежит"
+
+#: photition_models/models/comment/models.py:48
+#: photition_models/models/comment/models.py:49
+msgid "Answer to"
+msgstr "Ответ"
+
+#: photition_models/models/comment/models.py:53
+#: photition_models/models/comment/models.py:54
+#: photition_models/models/photo/photo_model.py:61
+#: photition_models/models/photo/photo_model.py:62
+msgid "Created at"
+msgstr "Создано"
+
+#: photition_models/models/comment/models.py:58
+#: photition_models/models/comment/models.py:59
+#: photition_models/models/photo/photo_model.py:56
+#: photition_models/models/photo/photo_model.py:57
+msgid "Updated at"
+msgstr "Обновлено"
+
+#: photition_models/models/comment/models.py:63
+#: photition_models/models/comment/models.py:64
+#: photition_models/models/photo/photo_model.py:80
+#: photition_models/models/photo/photo_model.py:81
+msgid "Is deleted"
+msgstr "Удалено"
+
+#: photition_models/models/comment/models.py:72
+msgid "Comments"
+msgstr "Комментарии"
+
+#: photition_models/models/notice/notice_model.py:7
+#: photition_models/models/photo/photo_model.py:28
+msgid "Approved"
+msgstr "Одобрено"
+
+#: photition_models/models/notice/notice_model.py:8
+#: photition_models/models/photo/photo_model.py:29
+msgid "Rejected"
+msgstr "Отклонено"
+
+#: photition_models/models/notice/notice_model.py:9
+msgid "Global"
+msgstr "Общее"
+
+#: photition_models/models/notice/notice_model.py:10
+msgid "New Vote"
+msgstr "Новый голос"
+
+#: photition_models/models/notice/notice_model.py:11
+msgid "Vote Deleted"
+msgstr "Голос удален"
+
+#: photition_models/models/notice/notice_model.py:12
+msgid "New Comment"
+msgstr "Новый комментарий"
+
+#: photition_models/models/notice/notice_model.py:13
+msgid "Comment Will Deleted"
+msgstr "Комментарий будет удален"
+
+#: photition_models/models/notice/notice_model.py:21
+#: photition_models/models/notice/notice_model.py:22
+msgid "Initiator"
+msgstr "Инициатор"
+
+#: photition_models/models/notice/notice_model.py:40
+#: photition_models/models/notice/notice_model.py:41
+msgid "Recipient"
+msgstr "Получатель"
+
+#: photition_models/models/notice/notice_model.py:47
+#: photition_models/models/notice/notice_model.py:48
+msgid "Message"
+msgstr "Сообщение"
+
+#: photition_models/models/notice/notice_model.py:53
+#: photition_models/models/notice/notice_model.py:54
+msgid "Numeric data"
+msgstr "Числовые данные"
+
+#: photition_models/models/notice/notice_model.py:58
+#: photition_models/models/notice/notice_model.py:59
+msgid "Created"
+msgstr "Создано"
+
+#: photition_models/models/notice/notice_model.py:65
+#: photition_models/models/notice/notice_model.py:66
+msgid "Event"
+msgstr "Событие"
+
+#: photition_models/models/notice/notice_model.py:73
+msgid "Notice"
+msgstr "Уведомление"
+
+#: photition_models/models/notice/notice_model.py:74
+msgid "Notices"
+msgstr "Уведомления"
+
+#: photition_models/models/photo/photo_model.py:27
+msgid "Pending"
+msgstr "Ожидает проверки"
+
+#: photition_models/models/photo/photo_model.py:44
+#: photition_models/models/photo/photo_model.py:45
+msgid "Title"
+msgstr "Заголовок"
+
+#: photition_models/models/photo/photo_model.py:51
+#: photition_models/models/photo/photo_model.py:52
+msgid "Description"
+msgstr "Описание"
+
+#: photition_models/models/photo/photo_model.py:75
+#: photition_models/models/photo/photo_model.py:76
+msgid "Is allowed"
+msgstr "Одобрено"
+
+#: photition_models/models/photo/photo_model.py:86
+#: photition_models/models/photo/photo_model.py:87
+msgid "Will deleted in"
+msgstr "Будет удалено"
+
+#: photition_models/models/photo/photo_model.py:92
+#: photition_models/models/photo/photo_model.py:93
+msgid "Previous photo"
+msgstr "Предыдущее фото"
+
+#: photition_models/models/photo/photo_model.py:105
+#: photition_models/models/photo/photo_model.py:106
+msgid "State"
+msgstr "Состояние"
+
+#: photition_models/models/photo/photo_model.py:147
+msgid "Photos"
+msgstr "Фотокарточки"
+
+#: photition_models/models/user/photition_user_model.py:24
+#: photition_models/models/user/photition_user_model.py:25
+msgid "Email"
+msgstr "Почта"
+
+#: photition_models/models/user/photition_user_model.py:31
+#: photition_models/models/user/photition_user_model.py:32
+msgid "Avatar"
+msgstr "Аватар"

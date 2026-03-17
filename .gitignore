@@ -1,0 +1,17 @@
+.idea/
+
+.env
+.env.*
+*.env
+
+db.sqlite3
+
+__pycache__/
+
+media/
+
+.venv/
+
+redis-data/
+
+staticfiles/
