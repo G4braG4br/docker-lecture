@@ -1,0 +1,41 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Create Nginx configuration from template
+  template:
+    src: lecture.conf.j2
+    dest: /etc/nginx/sites-available/lecture.conf
+    owner: root
+    group: root
+    mode: "0644"
+  register: nginx_config
+
+- name: Validate Nginx configuration
+  command: nginx -t
+  register: nginx_check
+  become: yes
+  changed_when: false
+  failed_when: nginx_check.rc != 0
+
+- name: Enable the site by creating a symlink
+  file:
+    src: /etc/nginx/sites-available/lecture.conf
+    dest: /etc/nginx/sites-enabled/lecture.conf
+    state: link
+  register: nginx_link
+
+- name: Remove default Nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  register: nginx_default_removed
+
+- name: Reload Nginx to apply changes
+  service:
+    name: nginx
+    state: reloaded
+  when: nginx_config.changed or nginx_link.changed or nginx_default_removed.changed

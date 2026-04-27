@@ -1,0 +1,9 @@
+---
+- name: Деплой проекта docker-lecture
+  hosts: all
+  become: yes
+  roles:
+    - common
+    - docker
+    - deploy
+    - nginx

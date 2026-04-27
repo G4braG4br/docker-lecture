@@ -1,0 +1,96 @@
+- name: Ensure directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+  loop:
+    - "{{ releases_dir }}"
+    - "{{ shared_dir }}/config"
+    - "{{ shared_dir }}/logs"
+    - "{{ shared_dir }}/static"
+    - "{{ shared_dir }}/media"
+
+- name: Set release path
+  set_fact:
+    release_path: "{{ releases_dir }}/{{ ansible_facts['date_time'].iso8601_basic }}"
+
+# - name: Copy local project files to remote
+#   synchronize:
+#     src: "{{ role_path }}/../../../"
+#     dest: "{{ release_path }}/"
+#     recursive: yes
+#     delete: yes
+#     rsync_opts:
+#       - "--exclude=.git"
+#       - "--exclude=.venv"
+#       - "--exclude=__pycache__"
+#       - "--exclude=.idea"
+#       - "--exclude=.vscode"
+#       - "--exclude=ansible"
+
+- name: Clone repository from Git
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ release_path }}"
+    version: main
+    accept_hostkey: yes
+    force: yes
+  become: yes
+  become_user: "{{ app_user }}"
+
+- name: Overwrite Dockerfile
+  copy:
+    src: Dockerfile
+    dest: "{{ release_path }}/Dockerfile"
+    owner: "{{ app_user }}"
+    mode: "0644"
+
+- name: Generate .env from template
+  template:
+    src: .env_temp.j2
+    dest: "{{ shared_dir }}/config/.env"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0600"
+  become: yes
+
+- name: Render docker-compose.yml from template
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ release_path }}/docker-compose.yml"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0644"
+
+- name: Stop previous containers
+  shell: "docker compose -p photition down --remove-orphans"
+  args:
+    chdir: "{{ release_path }}"
+  failed_when: false
+  become: yes
+
+- name: Build and run containers
+  shell: "docker compose -p photition --env-file {{ shared_dir }}/config/.env up -d --build"
+  args:
+    chdir: "{{ release_path }}"
+  become: yes
+
+- name: Wait for DB
+  pause:
+    seconds: 5
+
+- name: Django migrations
+  command: "docker exec photition_web python manage.py migrate --noinput"
+
+- name: Update current symlink
+  file:
+    src: "{{ release_path }}"
+    dest: "{{ current_dir }}"
+    state: link
+    force: yes
+
+- name: Cleanup old releases
+  shell: "ls -1t | tail -n +6 | xargs rm -rf"
+  args:
+    chdir: "{{ releases_dir }}"

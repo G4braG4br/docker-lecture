@@ -1,25 +1,30 @@
+version: '3.9'
+name: photition
+
 services:
   postgres:
-    image: postgres:17-alpine
+    image: postgres:{{ postgres_version|default('17-alpine') }}
     container_name: photition_db
+    restart: unless-stopped
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: "{{ docker_env.DB_NAME }}"
+      POSTGRES_USER: "{{ docker_env.DB_USER }}"
+
+      POSTGRES_PASSWORD: "{{ docker_env.DB_PASSWORD }}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "{{ docker_env.DB_PORT|default(5432) }}:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-photition_user}"]
+      test: ["CMD-SHELL", "pg_isready -U {{ docker_env.DB_USER }}"]
       interval: 5s
       timeout: 5s
       retries: 5
-    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
     container_name: photition_redis
+    restart: unless-stopped
     volumes:
       - redis_data:/data
     healthcheck:
@@ -27,75 +32,57 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-    restart: unless-stopped
 
   web:
-    build: .
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: photition_web
+    restart: unless-stopped
     command: daphne -b 0.0.0.0 -p 8000 photition.asgi:application
-    volumes:
-      - .:/app
-      - static_volume:/app/static
-      - media_volume:/app/media
-    ports:
-      - "${WEB_PORT:-8000}:8000"
     env_file:
-      - .env.app
+      - "{{ shared_dir }}/config/.env"
+    ports:
+      - "{{ docker_env.WEB_PORT|default(8000) }}:8000"
+    volumes:
+      - "{{ shared_dir }}/static:/app/static"
+      - "{{ shared_dir }}/media:/app/media"
+      - "{{ shared_dir }}/logs:/app/logs"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-    restart: unless-stopped
 
   worker:
+    platform: linux/arm64
     build: .
     container_name: photition_worker
+    restart: unless-stopped
     command: celery -A photition worker --loglevel=info
-    volumes:
-      - .:/app
     env_file:
-      - .env.app
+      - "{{ shared_dir }}/config/.env"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-    restart: unless-stopped
 
   beat:
+    platform: linux/arm64
     build: .
     container_name: photition_beat
-    command: celery -A photition beat --loglevel=info
-    volumes:
-      - .:/app
-    env_file:
-      - .env.app
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     restart: unless-stopped
-
-  test:
-    build: .
-    container_name: photition_test
-    command: python manage.py test
-    volumes:
-      - .:/app
+    command: celery -A photition beat --loglevel=info
     env_file:
-      - .env.app
+      - "{{ shared_dir }}/config/.env"
     depends_on:
       postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
-    profiles:
-      - test
 
 volumes:
   postgres_data:
   redis_data:
-  static_volume:
-  media_volume:

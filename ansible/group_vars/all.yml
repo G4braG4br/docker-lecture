@@ -1,0 +1,29 @@
+app_user: "docker-lecture"
+app_group: "docker-lecture"
+
+app_root: "/var/www/{{ app_user }}/ss"
+releases_dir: "{{ app_root }}/releases"
+shared_dir: "{{ app_root }}/shared"
+current_dir: "{{ app_root }}/current"
+
+base_dir: "/var/www/{{ app_user }}/ss"
+
+
+repo_url: "https://github.com/G4braG4br/docker-lecture.git"
+repo_version: "main"
+
+postgres_version: "16-alpine"
+redis_version: "7-alpine"
+
+docker_env:
+  DJANGO_SETTINGS_MODULE: "docker-lecture.settings"
+  DJANGO_SECRET_KEY: "secret-key"
+  DB_NAME: "lecture"
+  DB_USER: "lecture"
+  DB_PASSWORD: "lecture_password"
+  REDIS_PASSWORD: "redis_password"
+  REDIS_HOST: "redis"
+  REDIS_PORT: 6379
+  IS_DEBUG: True
+
+server_name: "192.168.139.36"

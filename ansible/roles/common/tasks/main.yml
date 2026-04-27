@@ -1,0 +1,43 @@
+---
+- name: Remove conflicting docker repository files
+  file:
+    path: "/etc/apt/sources.list.d/{{ item }}"
+    state: absent
+  loop:
+    - docker.list
+    - archive_uri-https_download_docker_com_linux_ubuntu-jammy.list
+- name: Install base packages
+  apt:
+    name:
+      - curl
+      - git
+      - rsync
+      - acl
+    state: present
+    update_cache: yes
+
+- name: Create application group
+  group:
+    name: "{{ app_group }}"
+    state: present
+
+- name: Create application user
+  user:
+    name: "{{ app_user }}"
+    group: "{{ app_group }}"
+    shell: /bin/bash
+    home: "{{ app_root }}"
+    state: present
+
+- name: Create base directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0755"
+  loop:
+    - "{{ app_root }}"
+    - "{{ releases_dir }}"
+    - "{{ shared_dir }}"
+    - "{{ shared_dir }}/config"
