@@ -10,7 +10,7 @@ base_dir: "/var/www/{{ app_user }}/ss"
 
 
 repo_url: "https://github.com/G4braG4br/docker-lecture.git"
-repo_version: "main"
+repo_version: "ansible"
 
 postgres_version: "16-alpine"
 redis_version: "7-alpine"

@@ -33,7 +33,7 @@
   git:
     repo: "{{ repo_url }}"
     dest: "{{ release_path }}"
-    version: main
+    version: ansible
     accept_hostkey: yes
     force: yes
   become: yes
@@ -71,14 +71,10 @@
   become: yes
 
 - name: Build and run containers
-  shell: "docker compose -p photition --env-file {{ shared_dir }}/config/.env up -d --build"
+  shell: "docker compose -p photition --env-file {{ shared_dir }}/config/.env up -d --build --wait"
   args:
     chdir: "{{ release_path }}"
   become: yes
-
-- name: Wait for DB
-  pause:
-    seconds: 5
 
 - name: Django migrations
   command: "docker exec photition_web python manage.py migrate --noinput"
